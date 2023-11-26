@@ -3,7 +3,7 @@ import requests
 from openai import OpenAI
 from decouple import config
 openai_client = OpenAI(api_key=config("OPENAI_API_KEY"))
-huggingfacehub_api_token = config("HUGGINGFACE_API_TOKEN")
+# huggingfacehub_api_token = config("HUGGINGFACE_API_TOKEN")
 
 def hf_ask(question: str, model_url="https://api-inference.huggingface.co/models/google/flan-t5-xxl") -> str:
     """Ask a question to Huggingface, apply it to every row of a pandas dataframe and return the answer"""
@@ -30,7 +30,9 @@ def chatgpt_ask(question: str, model_name="gpt-3.5-turbo") -> str:
                 {"role": "user", "content": prompt}
             ]
             )
+            
             ret = completion.choices[0].message.content.strip()
+
             return ret
         except:
             return None
